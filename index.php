@@ -2,7 +2,9 @@
 
 
     // scan scripts directory for files
-    $filesArray = scandir('scripts/');    
+    $filesArray = array_filter(scandir('scripts'), function($item) {
+        return $item[0] !== '.';
+    });    
 
     $testCheck = array();
     // runs all scripts
@@ -48,4 +50,4 @@
         // $result .= ($check. '<br>');
         $testCheck[$hngId] = $check;
     }
-    print_r($testCheck);
+    print_r(json_encode($testCheck));
