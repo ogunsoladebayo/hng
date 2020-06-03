@@ -6,10 +6,10 @@
         return $item[0] !== '.';
     });    
 
-    $testCheck = array();
+    $resultArray = array();
     // runs all scripts
-    function runScript($fileExtension, $file){
-        $output = exec($fileExtension. ' '. $file);
+    function runScript($fileType, $fileName){
+        $output = exec($fileType. ' '. $fileName);
         return $output;
     }
 
@@ -26,26 +26,26 @@
     }
 
     // main program
-    foreach ($filesArray as $file) {
+    foreach ($filesArray as $fileName) {
         chdir('scripts');
-        $fileSplit = explode('.', $file);
+        $fileSplit = explode('.', $fileName);
         $hngId = $fileSplit[0];
-        $fileExtension = $fileSplit[1];
+        $fileType = $fileSplit[1];
 
-        if($fileExtension == 'py'){
+        if($fileType == 'py'){
             $ext = 'python';
-        }elseif($fileExtension == 'js'){
+        }elseif($fileType == 'js'){
             $ext = 'node';
-        }elseif($fileExtension == 'php'){
+        }elseif($fileType == 'php'){
             $ext = 'php';
         }else{
-            // file extension not compatible...
+            // fileName Type not compatible...
             $check = 'not compatible';
         }
         // call both functions
-        $output = runScript($ext, $file);
+        $output = runScript($ext, $fileName);
         $check = checkMatch($output);
 
-        $testCheck[$hngId] = $check;
+        $resultArray[$hngId] = $check;
     }
-    print_r(json_encode($testCheck));
+    print_r(json_encode($resultArray));
