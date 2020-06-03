@@ -4,7 +4,7 @@
     // scan scripts directory for files
     $filesArray = scandir('scripts/');    
 
-    $testCheck = array();
+    // $testCheck = array();
 
     function runScript($fileExtension, $file){
         chdir('scripts');
@@ -12,10 +12,9 @@
         return $output;
     }
 
-    function checkMatch($output){
+    // function checkMatch($output){
         
-    }
-
+    // }
 
 
     foreach ($filesArray as $file) {
@@ -33,5 +32,6 @@
         }else{
             // file extension not compatible...
         }
-        echo $output
-    };
+        $allEntry .= ($output. '<br>');
+    }
+    echo $allEntry;
