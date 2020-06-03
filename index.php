@@ -4,13 +4,15 @@
     // scan scripts directory for files
     $filesArray = scandir('scripts/');    
 
-    // $testCheck = array();
-
+    $testCheck = array();
+    // runs all scripts
     function runScript($fileExtension, $file){
         chdir('scripts');
         $output = exec($fileExtension. ' '. $file);
         return $output;
     }
+
+    // checking for specific strings...
     function checkMatch($output){
         $searchTerm1 = "Hello World, this is";
         $searchTerm2 = "for stage 2 task";    
@@ -22,10 +24,12 @@
         return $check;
     }
 
-
+    // main program
     foreach ($filesArray as $file) {
         $fileSplit = explode('.', $file);
+        $hngId = $fileSplit[0];
         $fileExtension = $fileSplit[1];
+
         if($fileExtension == 'py'){
             // call function
             $output = runScript('python', $file);
@@ -40,6 +44,8 @@
             $check = 'not compatible';
         }
         $check = checkMatch($output);
-        $result .= ($check. '<br>');
+
+        // $result .= ($check. '<br>');
+        $testCheck[$hngId] = $check;
     }
-    echo $result;
+    print_r($testCheck);
