@@ -27,7 +27,7 @@
 
     // main program
     foreach ($filesArray as $fileName) {
-        chdir('scripts');
+        @chdir('scripts');
         $fileSplit = explode('.', $fileName);
         $hngId = $fileSplit[0];
         $fileType = $fileSplit[1];
