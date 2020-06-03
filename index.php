@@ -9,7 +9,6 @@
     $testCheck = array();
     // runs all scripts
     function runScript($fileExtension, $file){
-        chdir('scripts');
         $output = exec($fileExtension. ' '. $file);
         return $output;
     }
@@ -28,26 +27,25 @@
 
     // main program
     foreach ($filesArray as $file) {
+        chdir('scripts');
         $fileSplit = explode('.', $file);
         $hngId = $fileSplit[0];
         $fileExtension = $fileSplit[1];
 
         if($fileExtension == 'py'){
-            // call function
-            $output = runScript('python', $file);
+            $ext = 'python';
         }elseif($fileExtension == 'js'){
-            // call function
-            $output = runScript('node', $file);
+            $ext = 'node';
         }elseif($fileExtension == 'php'){
-            // call function
-            $output = runScript('php', $file);
+            $ext = 'php';
         }else{
             // file extension not compatible...
             $check = 'not compatible';
         }
+        // call both functions
+        $output = runScript($ext, $file);
         $check = checkMatch($output);
 
-        // $result .= ($check. '<br>');
         $testCheck[$hngId] = $check;
     }
     print_r(json_encode($testCheck));
